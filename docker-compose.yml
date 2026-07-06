@@ -1,0 +1,57 @@
+services:
+  app:
+    image: ${IMAGE:-ghcr.io/dansantodomingo/vson-dan}:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file:
+      - /opt/vson/.env
+    environment:
+      PORT: "3000"
+    # Loopback-only so the deploy health-check can reach it; not internet-facing.
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - web
+
+  db:
+    image: postgres:16
+    container_name: vson-db
+    restart: unless-stopped
+    env_file:
+      - /opt/vson/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Runs once, only when the data volume is empty.
+      - /opt/vson/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - web
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/vson/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - web
+
+networks:
+  web:
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:
