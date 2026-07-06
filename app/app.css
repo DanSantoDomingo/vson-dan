@@ -188,7 +188,7 @@
     color: transparent;
   }
   .gradient-text-brand {
-    background: linear-gradient(120deg, var(--primary), var(--accent-2));
+    background: linear-gradient(120deg, var(--accent-2), var(--primary));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

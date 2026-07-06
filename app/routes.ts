@@ -7,4 +7,5 @@ export default [
   route("/api/notes", "routes/api.notes.ts"),
   route("/api/ping", "routes/api.ping.ts"),
   route("/api/advice", "routes/api.advice.ts"),
+  route("/api/foo", "routes/api.foo.ts"),
 ] satisfies RouteConfig;

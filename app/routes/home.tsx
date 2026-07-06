@@ -34,8 +34,8 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="bg-grid pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="aurora aurora-1 left-[8%] top-[-10%] h-[26rem] w-[26rem]" />
-          <div className="aurora aurora-2 right-[6%] top-[6%] h-[22rem] w-[22rem]" />
+          <div className="aurora aurora-2 left-[8%] top-[-10%] h-[26rem] w-[26rem]" />
+          <div className="aurora aurora-1 right-[6%] top-[6%] h-[22rem] w-[22rem]" />
         </div>
 
         <div className="container mx-auto flex flex-col items-center px-4 pb-20 pt-16 text-center sm:pb-28 sm:pt-24">
